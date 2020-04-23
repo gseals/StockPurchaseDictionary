@@ -33,16 +33,16 @@ namespace StockPurchaseDictionary
             // Add more for each stock you added to the stocks dictionary
 
             purchases.Add((ticker: "GM", shares: 17, price: 12.02));
-            //purchases.Add((ticker: "GM", shares: 19, price: 19.02));
-            //purchases.Add((ticker: "GM", shares: 36, price: 36.02));
+            purchases.Add((ticker: "GM", shares: 19, price: 19.02));
+            purchases.Add((ticker: "GM", shares: 36, price: 36.02));
 
             purchases.Add((ticker: "CAT", shares: 34, price: 45.02));
-            //purchases.Add((ticker: "CAT", shares: 25, price: 29.02));
-            //purchases.Add((ticker: "CAT", shares: 20, price: 25.02));
+            purchases.Add((ticker: "CAT", shares: 25, price: 29.02));
+            purchases.Add((ticker: "CAT", shares: 20, price: 25.02));
 
             purchases.Add((ticker: "BEST", shares: 32, price: 34.02));
-            //purchases.Add((ticker: "BEST", shares: 48, price: 50.02));
-            //purchases.Add((ticker: "BEST", shares: 56, price: 58.02));
+            purchases.Add((ticker: "BEST", shares: 48, price: 50.02));
+            purchases.Add((ticker: "BEST", shares: 56, price: 58.02));
 
             //Create a total ownership report that computes the total value of each stock that you have purchased.
             //This is the basic relational database join algorithm between two tables.
@@ -56,33 +56,37 @@ namespace StockPurchaseDictionary
             // Iterate over the purchases and update the valuation for each stock
             foreach (var (ticker, shares, price) in purchases)
             {
-                if (ticker == "AA")
+                if (totalPurchase.ContainsKey(ticker) == false)
                 {
-                    var company = "AA";
-                    //var updateCompany = purchases.Where(purchase => purchase.ticker == company).ToString();
-                    double purchaseInfo = price * shares;
-                    totalPurchase.Add(company, purchaseInfo);
+                    totalPurchase.Add(ticker, 0);
+                }
+                else if (ticker == "AA")
+                {
+                    double allPrice = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.price).Sum();
+                    double allShares = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.shares).Sum();
+                    var purchaseInfo = allPrice * allShares;
+                    totalPurchase[ticker] = Math.Round(purchaseInfo);
                 }
                 else if (ticker == "GM")
                 {
-                    string company = "GM";
-                    //var updateCompany = purchases.Where(purchase => purchase.ticker == company).ToString();
-                    var purchaseInfo = price * shares;
-                    totalPurchase.Add(company, purchaseInfo);
+                    double allPrice = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.price).Sum();
+                    double allShares = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.shares).Sum();
+                    var purchaseInfo = allPrice * allShares;
+                    totalPurchase[ticker] = Math.Round(purchaseInfo);
                 }
                 else if (ticker == "CAT")
                 {
-                    string company = "CAT";
-                    //var updateCompany = purchases.Where(purchase => purchase.ticker == company).ToString();
-                    var purchaseInfo = price * shares;
-                    totalPurchase.Add(company, purchaseInfo);
+                    double allPrice = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.price).Sum();
+                    double allShares = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.shares).Sum();
+                    var purchaseInfo = allPrice * allShares;
+                    totalPurchase[ticker] = Math.Round(purchaseInfo);
                 }
                 else if (ticker == "BEST")
                 {
-                    string company = "BEST";
-                    //var updateCompany = purchases.Where(purchase => purchase.ticker == company).ToString();
-                    var purchaseInfo = price * shares;
-                    totalPurchase.Add(company, purchaseInfo);
+                    double allPrice = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.price).Sum();
+                    double allShares = purchases.Where(purchase => purchase.ticker == ticker).Select(purchase => purchase.shares).Sum();
+                    var purchaseInfo = allPrice * allShares;
+                    totalPurchase[ticker] = Math.Round(purchaseInfo);
                 }
                 // Does the company name key already exist in the report dictionary?
                 // If it does, update the total valuation
